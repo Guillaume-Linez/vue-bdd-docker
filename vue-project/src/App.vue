@@ -1,52 +1,31 @@
-<script setup>
-
-</script>
-
 <template>
-<h1>test</h1>
+  <div>
+    <button @click="fetchData">Récupérer des données de la base de données</button>
+    <ul>
+      <li v-for="data in databaseData" :key="data._id">{{ data.field }}</li>
+    </ul>
+  </div>
 </template>
 
-<style scoped>
+<script>
+import axios from 'axios';
 
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+export default {
+  data() {
+    return {
+      databaseData: [],
+    };
+  },
+  methods: {
+    fetchData() {
+      axios.get('http://localhost:27017/admin/Produit') // Assurez-vous que l'URL correspond à votre backend
+        .then(response => {
+          this.databaseData = response.data;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des données', error);
+        });
+    },
+  },
+};
+</script>
