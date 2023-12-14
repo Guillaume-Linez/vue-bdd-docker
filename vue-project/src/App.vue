@@ -18,9 +18,13 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('http://localhost:27017/admin/Produit') // Assurez-vous que l'URL correspond à votre backend
+      axios.get('http://localhost:3000/api/data') // Assurez-vous que l'URL correspond à votre backend
         .then(response => {
-          this.databaseData = response.data;
+          // this.databaseData = response.data;
+          console.log(response.data)
+          response.data.forEach(e => {
+            console.log(e)
+          });
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des données', error);

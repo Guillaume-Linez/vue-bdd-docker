@@ -2,9 +2,11 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3000;
+const cors = require('cors');
 
 const mongoURI = 'mongodb://localhost:27017/admin'; // Remplacez par l'URL de votre base MongoDB
 
+app.use(cors());
 app.use(express.json());
 
 // Route pour récupérer toutes les données
@@ -26,7 +28,7 @@ app.get('/api/data', async (req, res) => {
     console.error('Erreur lors de la récupération des données', error);
     res.status(500).send('Erreur serveur');
   } finally {
-    client.close();
+    // client.close();
   }
 });
 
